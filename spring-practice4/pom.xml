@@ -12,6 +12,7 @@
     <maven.compiler.source>20</maven.compiler.source>
     <maven.compiler.target>20</maven.compiler.target>
     <spring.version>5.3.27</spring.version>
+
   </properties>
 
   <dependencies>

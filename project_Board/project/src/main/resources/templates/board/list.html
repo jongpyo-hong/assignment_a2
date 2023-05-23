@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<main layout:fragment="content">
+
+    <ul>
+        <li th:each="item : ${items}" th:object="${item}">
+            <a th:href="@{/board/view/{id}(id=*{id})}" th:text="*{subject}"></a>
+            <a th:href="@{/board/delete/{id}(id=*{id})}" th:text="#{board.delete}"></a>
+        </li>
+    </ul>
+
+</main>
+</html>
