@@ -55,6 +55,12 @@ public class BoardDao {
         return items;
     }
 
+    public int delete(Long id) {
+        String sql = "DELETE FROM BDATA WHERE ID = ?";
+
+        return jdbcTemplate.update(sql,id);
+    }
+
     private Board mapper(ResultSet rs, int i) throws SQLException {
         Board board = new Board();
         board.setId(rs.getLong("ID"));

@@ -1,9 +1,7 @@
 package org.koreait.controllers.board;
 
 import jakarta.validation.Valid;
-import org.koreait.models.board.Board;
-import org.koreait.models.board.BoardListService;
-import org.koreait.models.board.BoardSaveService;
+import org.koreait.models.board.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +17,12 @@ public class BoardController {
     private BoardSaveService saveService;
     @Autowired
     private BoardListService listService;
+    @Autowired
+    private BoardViewService viewService;
+    @Autowired
+    private BoardDeleteService deleteService;
+    @Autowired
+    private BoardDao boardDao;
     @GetMapping("/write")
     public String write(@ModelAttribute BoardForm boardForm) {
 
@@ -45,10 +49,19 @@ public class BoardController {
         return "board/list";
     }
 
-    @GetMapping("/view")
-    public String view(@PathVariable Long id) {
-
+    @GetMapping("/view/{id}")
+    public String view(@PathVariable Long id, Model model) {
+        Board view = viewService.get(id);
+        model.addAttribute("view", view);
 
         return "board/view";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id) {
+        Board board = boardDao.get(id);
+        deleteService.delete(board.getId());
+
+        return "redirect:/board/list";
     }
 }
